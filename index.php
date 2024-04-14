@@ -30,7 +30,7 @@ $files_in_directory = scandir($dir_files_pages);
 
 $flag = 0;
 foreach ($files_in_directory as $key=>$files) {
-  if ($flag>1000) break;
+  if ($flag>2000) break;
  
   if ($files[0]!=='.' && $files[1]!=='.') {
   // $doc = file_get_contents($dir_files_pages.'/'.'page_10179.html');
@@ -135,13 +135,29 @@ foreach ($row_name as $key1=>$value) {
   $tr = pq($value)->find('td')->text();
 
   $tr = str_replace('mm', 'мм', $tr);
-
-
-
+  $tr = str_replace('Inch', 'дюйм', $tr);
+  $tr = str_replace('cm', 'см', $tr);
+ $tr = str_replace('pcs', 'шт', $tr);
+  $tr = str_replace(' m', ' м', $tr);
+  $tr = str_replace('Rubber', 'Гумовий', $tr);
+  $tr = str_replace('Twisted', 'Кручений', $tr);
+  $tr = str_replace('Round', 'Круглий', $tr);
+  $tr = str_replace('Metric', 'Метрична', $tr);
+  $tr = str_replace('Reel', 'Катушка', $tr);
+   $tr = str_replace('Square', 'Квадрат', $tr);
+$tr = str_replace(' V', ' В', $tr);
+$tr = str_replace('Toothed', 'Зубчастий', $tr);
+$tr = str_replace('Chloroprene rubber', 'Хлоропреновий каучук', $tr);
+$tr = str_replace('r/min', 'об/хв', $tr);
+$tr = str_replace('Tube', 'Тюбик', $tr);
+ 
   $li = pq($value)->find('.kh-16zd49f')->html();
 if($li) {
   $li = str_replace('</span><span>', ' | ', $li);
-  $li = str_replace('mm', 'мм', $li);
+$li = str_replace('mm', 'мм', $li);
+
+   
+  
   $description_row_value[$key1] = $li;
 }
 else {
