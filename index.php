@@ -2,6 +2,7 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('max_execution_time', 0);
+ini_set('default_charset', 'UTF-8');
 function format ($expre) {
     echo "<pre>";
     print_r($expre);
@@ -56,88 +57,138 @@ $product[$key]['product_name']= $product_name;
 
 
 //перекладач
-$product_name = str_replace('ZUGFEDER', 'пружина', $product_name);
-$product_name = str_replace('EXTENSION SPRING Reel', 'пружина', $product_name);
-$product_name = str_replace('Recoil Starter', 'стартер', $product_name);
-$product_name = str_replace('BOWDENZUG', 'трос Боудена', $product_name);
-$product_name = str_replace('Choke cable', 'кабель дроселя', $product_name);
-$product_name = str_replace('Clutch cable', 'Трос зчеплення', $product_name);
-$product_name = str_replace('Weeding wire', 'Прополювальний дріт', $product_name);
-$product_name = str_replace('Nylon line', 'Нейлонова волосінь', $product_name);
-$product_name = str_replace('Леска для триммера', 'Ліска для тримера', $product_name);
-$product_name = str_replace('Trimmer head semi-automatic', 'тримерна полуавтоматична головка', $product_name);
-$product_name = str_replace('Леска для триммера', 'Ліска для тримера', $product_name);
-$product_name = str_replace('Knob LH thread', 'Ручка з лівою різьбою', $product_name);
-$product_name = str_replace('Нож триммера', 'ніж тримера', $product_name);
-$product_name = str_replace('Knob LH thread', 'Ручка з лівою різьбою', $product_name);
-$product_name = str_replace('Brushes kit', 'Щітки', $product_name);
-$product_name = str_replace('Лезвие для мотокосы', 'Лезо мотокоси', $product_name); 
-$product_name = str_replace('Cutter', 'різак', $product_name); 
-$product_name = str_replace('Recoil pulley', 'Шків стартера', $product_name); 
-$product_name = str_replace('Compression spring', 'Пружина стиснення', $product_name); 
-$product_name = str_replace('DREHFEDER', 'пружина', $product_name); 
-$product_name = str_replace('Piston', 'Поршень', $product_name); 
-$product_name = str_replace('Spring-Torsion', 'Пружина', $product_name); 
-$product_name = str_replace('Piston ring set', 'Поршневі кільця', $product_name); 
-$product_name = str_replace('Spring-Torsion', 'Пружина', $product_name); 
-$product_name = str_replace('Spring', 'Пружина', $product_name); 
-$product_name = str_replace('Coil Assy', 'Котушка', $product_name); 
-$product_name = str_replace('Flywheel Assy', 'Маховик', $product_name); 
-$product_name = str_replace('Brush set', 'Щітки', $product_name); 
-$product_name = str_replace('Oil filter', 'Масляний фільтр', $product_name); 
-$product_name = str_replace('Fan', 'вентилятор', $product_name); 
-$product_name = str_replace('Cap', 'головка', $product_name); 
-$product_name = str_replace('O-Ring', 'о кільце', $product_name); 
-$product_name = str_replace('Tube', 'труба', $product_name); 
-$product_name = str_replace('Spark plug', 'Свічка запалювання', $product_name); 
-$product_name = str_replace('Solenoid coil', 'Електромагнітна котушка', $product_name); 
-$product_name = str_replace('Spark plug', 'Свічка запалювання', $product_name); 
-$product_name = str_replace('Return spring', 'Зворотна пружина', $product_name); 
-$product_name = str_replace('Zugfeder Getriebe', 'Редуктор пружини розтягування', $product_name); 
-$product_name = str_replace('Exhaust gasket', 'Прокладка вихлопу', $product_name); 
-$product_name = str_replace('Gasket fuel pump', 'Прокладка паливного насоса', $product_name); 
-$product_name = str_replace('Катушка зажигания', 'Катушка запалення', $product_name);
-$product_name = str_replace('EXTENSION SPRING', 'Пружина', $product_name);
-$product_name = str_replace('SPRING', 'Пружина', $product_name);
-$product_name = str_replace('Reel, стартер', 'Котушка стартера', $product_name);
-$product_name = str_replace('Воздушный фильтр', 'Повітряний фільтр', $product_name);
-$product_name = str_replace('FEDER', 'Пружина', $product_name);
-$product_name = str_replace('Щетки угольные', 'Вугільні щітки', $product_name);
-$product_name = str_replace('Extension spring', 'Вугільні щітки', $product_name);
-$product_name = str_replace('Поршень ring set', 'Комплект поршньових кілець', $product_name);
-$product_name = str_replace('Ignition coil', 'Катушка запалення', $product_name);
-$product_name = str_replace('Starter motor', 'Стартер', $product_name);
-$product_name = str_replace('Регулятор напряжения', 'Регулятор напруги', $product_name);
-$product_name = str_replace('Клиновой ремень', 'Клиновий ремінь', $product_name);
-$product_name = str_replace('Nut copper for exhaust', 'Гайка мідна для вихлопу', $product_name);
-$product_name = str_replace('Torsion spring', 'Пружина', $product_name);
-$product_name = str_replace('Удлинительная пружина', 'Подовжувальна пружина', $product_name);
-$product_name = str_replace('Zugfeder für Klauenkupplungsge', 'Пружина розтягування для зубчастого зчеплення', $product_name);
-$product_name = str_replace('Feder', 'Пружина', $product_name);
-$product_name = str_replace('натяжная', 'натяжна', $product_name);
-$product_name = str_replace('clutch/brake', 'зчеплення/гальмо', $product_name);
-$product_name = str_replace('Tension spring', 'пружина', $product_name);
-$product_name = str_replace('Upper handle with soft grip', "Верхня ручка з м'якою ручкою", $product_name);
-$product_name = str_replace('Seat', "Сидіння", $product_name);
-$product_name = str_replace('Сиденье', "Сидіння", $product_name);
-$product_name = str_replace('Упорное кольцо', "Упорне кільце", $product_name);
-$product_name = str_replace('Nut', "Гайка", $product_name);
-$product_name = str_replace('Screw', "Гвинт", $product_name);
-$product_name = str_replace('Bolt', "Болт", $product_name);
-$product_name = str_replace('Кольцо стопорное', "Кільце стопорне", $product_name);
-$product_name = str_replace('упорная', "упорна", $product_name);
-$product_name = str_replace('Washer', "шайба", $product_name);
-$product_name = str_replace('Spacer', "розпірна втулка", $product_name);
-$product_name = str_replace('Кольцо', "кільце", $product_name);
-$product_name = str_replace('сжатия', "стиснення", $product_name);
-$product_name = str_replace('сцепления', "зчеплення", $product_name);
-$product_name = str_replace('Натяжная', "натяжна", $product_name);
-$product_name = str_replace('Handle grip', "захват ручки", $product_name);
-$product_name = str_replace('Нижняя', "нижня", $product_name);
-$product_name = str_replace('Крепление', "кріплення", $product_name);
-$product_name = str_replace('правый', "правий", $product_name);
-$product_name = str_replace('Держатель', "тримач", $product_name);
-$product_name = str_replace('Rear seat tray', "Лоток для заднього сидіння", $product_name);
+$product_name = str_ireplace('ZUGFEDER', 'пружина', $product_name);
+$product_name = str_ireplace('EXTENSION SPRING Reel', 'пружина', $product_name);
+$product_name = str_ireplace('Recoil Starter', 'стартер', $product_name);
+$product_name = str_ireplace('BOWDENZUG', 'трос Боудена', $product_name);
+$product_name = str_ireplace('Choke cable', 'кабель дроселя', $product_name);
+$product_name = str_ireplace('Clutch cable', 'трос зчеплення', $product_name);
+$product_name = str_ireplace('Weeding wire', 'прополювальний дріт', $product_name);
+$product_name = str_ireplace('Nylon line', 'нейлонова волосінь', $product_name);
+$product_name = str_ireplace('Леска для триммера', 'ліска для тримера', $product_name);
+$product_name = str_ireplace('Trimmer head semi-automatic', 'тримерна полуавтоматична головка', $product_name);
+$product_name = str_ireplace('Леска для триммера', 'ліска для тримера', $product_name);
+$product_name = str_ireplace('Knob LH thread', 'ручка з лівою різьбою', $product_name);
+$product_name = str_ireplace('Нож триммера', 'ніж тримера', $product_name);
+$product_name = str_ireplace('Knob LH thread', 'ручка з лівою різьбою', $product_name);
+$product_name = str_ireplace('Brushes kit', 'щітки', $product_name);
+$product_name = str_ireplace('Лезвие для мотокосы', 'лезо мотокоси', $product_name); 
+$product_name = str_ireplace('Cutter', 'різак', $product_name); 
+$product_name = str_ireplace('Recoil pulley', 'шків стартера', $product_name); 
+$product_name = str_ireplace('Compression spring', 'пружина стиснення', $product_name); 
+$product_name = str_ireplace('DREHFEDER', 'пружина', $product_name); 
+$product_name = str_ireplace('Piston', 'поршень', $product_name); 
+$product_name = str_ireplace('Spring-Torsion', 'пружина', $product_name); 
+$product_name = str_ireplace('Piston ring set', 'поршневі кільця', $product_name); 
+$product_name = str_ireplace('Spring-Torsion', 'пружина', $product_name); 
+$product_name = str_ireplace('Spring', 'пружина', $product_name); 
+$product_name = str_ireplace('Coil Assy', 'котушка', $product_name); 
+$product_name = str_ireplace('Flywheel Assy', 'маховик', $product_name); 
+$product_name = str_ireplace('Brush set', 'щітки', $product_name); 
+$product_name = str_ireplace('Oil filter', 'масляний фільтр', $product_name); 
+$product_name = str_ireplace('Fan', 'вентилятор', $product_name); 
+$product_name = str_ireplace('Cap', 'головка', $product_name); 
+$product_name = str_ireplace('O-Ring', 'о кільце', $product_name); 
+$product_name = str_ireplace('Tube', 'труба', $product_name); 
+$product_name = str_ireplace('Spark plug', 'свічка запалювання', $product_name); 
+$product_name = str_ireplace('Solenoid coil', 'електромагнітна котушка', $product_name); 
+$product_name = str_ireplace('Spark plug', 'свічка запалювання', $product_name); 
+$product_name = str_ireplace('Return spring', 'зворотна пружина', $product_name); 
+$product_name = str_ireplace('Zugfeder Getriebe', 'редуктор пружини розтягування', $product_name); 
+$product_name = str_ireplace('Exhaust gasket', 'прокладка вихлопу', $product_name); 
+$product_name = str_ireplace('Gasket fuel pump', 'прокладка паливного насоса', $product_name); 
+$product_name = str_ireplace('Катушка зажигания', 'катушка запалення', $product_name);
+$product_name = str_ireplace('EXTENSION SPRING', 'пружина', $product_name);
+$product_name = str_ireplace('SPRING', 'Пружина', $product_name);
+$product_name = str_ireplace('Reel, стартер', 'котушка стартера', $product_name);
+$product_name = str_ireplace('Воздушный фильтр', 'Повітряний фільтр', $product_name);
+$product_name = str_ireplace('FEDER', 'пружина', $product_name);
+$product_name = str_ireplace('Щетки угольные', 'вугільні щітки', $product_name);
+$product_name = str_ireplace('Extension spring', 'вугільні щітки', $product_name);
+$product_name = str_ireplace('Поршень ring set', 'комплект поршньових кілець', $product_name);
+$product_name = str_ireplace('Ignition coil', 'катушка запалення', $product_name);
+$product_name = str_ireplace('Starter motor', 'стартер', $product_name);
+$product_name = str_ireplace('Регулятор напряжения', 'регулятор напруги', $product_name);
+$product_name = str_ireplace('Клиновой ремень', 'клиновий ремінь', $product_name);
+$product_name = str_ireplace('Nut copper for exhaust', 'гайка мідна для вихлопу', $product_name);
+$product_name = str_ireplace('Torsion spring', 'пружина', $product_name);
+$product_name = str_ireplace('Удлинительная пружина', 'подовжувальна пружина', $product_name);
+$product_name = str_ireplace('Zugfeder für Klauenkupplungsge', 'пружина розтягування для зубчастого зчеплення', $product_name);
+$product_name = str_ireplace('Feder', 'Пружина', $product_name);
+$product_name = str_ireplace('натяжная', 'натяжна', $product_name);
+$product_name = str_ireplace('clutch/brake', 'зчеплення/гальмо', $product_name);
+$product_name = str_ireplace('Tension spring', 'пружина', $product_name);
+$product_name = str_ireplace('Upper handle with soft grip', "верхня ручка з м'якою ручкою", $product_name);
+$product_name = str_ireplace('Seat', "сидіння", $product_name);
+$product_name = str_ireplace('Сиденье', "сидіння", $product_name);
+$product_name = str_ireplace('Упорное кольцо', "упорне кільце", $product_name);
+$product_name = str_ireplace('Nut', "гайка", $product_name);
+$product_name = str_ireplace('Screw', "гвинт", $product_name);
+$product_name = str_ireplace('Bolt', "болт", $product_name);
+$product_name = str_ireplace('Кольцо стопорное', "Кільце стопорне", $product_name);
+$product_name = str_ireplace('упорная', "упорна", $product_name);
+$product_name = str_ireplace('Washer', "шайба", $product_name);
+$product_name = str_ireplace('Spacer', "розпірна втулка", $product_name);
+$product_name = str_ireplace('Кольцо', "кільце", $product_name);
+$product_name = str_ireplace('сжатия', "стиснення", $product_name);
+$product_name = str_ireplace('сцепления', "зчеплення", $product_name);
+$product_name = str_ireplace('Натяжная', "натяжна", $product_name);
+$product_name = str_ireplace('Handle grip', "захват ручки", $product_name);
+$product_name = str_ireplace('Нижняя', "нижня", $product_name);
+$product_name = str_ireplace('Крепление', "кріплення", $product_name);
+$product_name = str_ireplace('правый', "правий", $product_name);
+$product_name = str_ireplace('Держатель', "тримач", $product_name);
+$product_name = str_ireplace('Rear seat tray', "лоток для заднього сидіння", $product_name);
+$product_name = str_ireplace('extension', "витягування", $product_name);
+$product_name = str_ireplace('spark plug cap', "ковпачок свічки запалювання", $product_name);
+$product_name = str_ireplace('левая', "ліва", $product_name);
+$product_name = str_ireplace('левый', "лівий", $product_name);
+$product_name = str_ireplace('выхлопной трубы', "вихлопної труби", $product_name);
+$product_name = str_ireplace('Фрикционный диск', "фрикційний диск", $product_name);
+$product_name = str_ireplace('распорный', "розпірний", $product_name);
+$product_name = str_ireplace('дисковая', "дискова", $product_name);
+$product_name = str_ireplace('Стопорное кольцо', "стопорне кільце", $product_name);
+$product_name = str_ireplace('нейтральная', "нейтральна", $product_name);
+$product_name = str_ireplace('Snap ring', "стопорне кільце", $product_name);
+$product_name = str_ireplace('Locking nut', "стопорна гайка", $product_name);
+$product_name = str_ireplace('Shim', "шайба", $product_name);
+$product_name = str_ireplace('Винт', "гвинт", $product_name);
+$product_name = str_ireplace('двигателя', "двигуна", $product_name);
+$product_name = str_ireplace('für Klauenkupplungsge', "для зубчастого зчеплення", $product_name);
+$product_name = str_ireplace('рычага управления', "важеля управління", $product_name);
+$product_name = str_ireplace('красная', "червона", $product_name);
+$product_name = str_ireplace('с треугольной головкой', "з трикутною головкою", $product_name);
+$product_name = str_ireplace('Защелка стопорная', "засувка стопорна", $product_name);
+$product_name = str_ireplace('растяжения', "розтягування", $product_name);
+$product_name = str_ireplace('рычага', "важеля", $product_name);
+$product_name = str_ireplace('управления', "керування", $product_name);
+$product_name = str_ireplace('рычага', "важеля", $product_name);
+$product_name = str_ireplace('Handle', "ручка", $product_name);
+$product_name = str_ireplace('Изоляционная', "ізоляційна", $product_name);
+$product_name = str_ireplace('Барашковая', "барашкова", $product_name);
+$product_name = str_ireplace('Держатель', "Тримач", $product_name);
+$product_name = str_ireplace('Нижняя', "нижня", $product_name);
+$product_name = str_ireplace('Соединительный', "з'єднувальний", $product_name);
+$product_name = str_ireplace('предохранительная', "запобіжна", $product_name);
+$product_name = str_ireplace('Уплотнительная', "ущільнювальна", $product_name);
+$product_name = str_ireplace('Circlip', "стопорне кільце", $product_name);
+$product_name = str_ireplace('Рым-гайка', "рим-гайки", $product_name);
+$product_name = str_ireplace('Шестигранный', "шестигранний", $product_name);
+$product_name = str_ireplace('for', "для", $product_name);
+$product_name = str_ireplace('Tension', "напруга", $product_name);
+$product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
+$product_name = str_ireplace('Левая', "ліва", $product_name);
+$product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
+$product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
+$product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
+
+
+
+
+
+
+
+
 
 
 
@@ -176,7 +227,6 @@ else {
   $full_name =  mb_ucfirst($full_name);
 }
 
-// echo $full_name.'<br>';
 
 
 // посилання на сторінку
@@ -200,18 +250,22 @@ foreach($bread_path as $key=>$value){
 
 if (!in_array('Деталі для мотоблоків і газонокосарок', $bread_arr)) continue;
 //тип. береться з крошок 
-$bread_arr_format = array_pop($bread_arr);
-$bread_arr_format = str_replace(' - огляд - Оригінальне обладнання', '', $bread_arr_format);
-$bread_arr_format = str_replace('Handles - overview - OE', 'Ручки', $bread_arr_format);
-$bread_arr_format = str_replace('Push lever supports - overview - OE', 'Опори натискного важеля', $bread_arr_format);
-$bread_arr_format = str_replace('- огляд - Оригінальні', '', $bread_arr_format);
-
+$type_product = array_pop($bread_arr);
+$type_product = str_replace(' - огляд - Оригінальне обладнання', '', $type_product);
+$type_product = str_replace('Handles - overview - OE', 'Ручки', $type_product);
+$type_product = str_replace('Push lever supports - overview - OE', 'Опори натискного важеля', $type_product);
+$type_product= str_replace('- огляд - Оригінальні', '', $type_product);
+$type_product= str_replace(', оригінальне обладнання', '', $type_product);
    
-echo $bread_arr_format.'<br>';
+echo $type_product.'<br>';
 
 //
-echo $full_name.'<br>';
-format($bread_arr);
+echo '<b>'.$full_name.'</b><br>';
+
+
+$bread_string = implode('>', $bread_arr); 
+
+echo $bread_string.'<br>';
 
 
 
@@ -284,28 +338,28 @@ $tr = str_replace('Toothed', 'Зубчастий', $tr);
 $tr = str_replace('Chloroprene rubber', 'Хлоропреновий каучук', $tr);
 $tr = str_replace('r/min', 'об/хв', $tr);
 $tr = str_replace('Tube', 'Тюбик', $tr);
+$tr = str_replace('Yellow', 'Жовтий', $tr);
+$tr = str_replace('Seat repairing', 'Ремонт сидінь', $tr);
+
+
  
   $li = pq($value)->find('.kh-16zd49f')->html();
 if($li) {
   $li = str_replace('</span><span>', ' | ', $li);
 $li = str_replace('mm', 'мм', $li);
 
-   
-  
   $description_row_value[$key1] = $li;
 }
 else {
   $description_row_value[$key1] = $tr;
 }
- 
-      // echo $th.'----------' .$tr.'<br>';
       $description_row[$key1] = $th;
       
     }
 
 
 $combine_description = array_combine($description_row, $description_row_value);
-// format($combine_description);
+format($combine_description);
 
 
 
@@ -315,12 +369,58 @@ $con = connect_db();
 $sql = "INSERT INTO products (name, sku, brand, image, origsku, url)
 VALUES ('$full_name', '$sku', '$brand', '$images_str', '$originals_sku_arr_str', '$url')";
 $con->query($sql);  
+
+
+
+
+foreach($combine_description as $column => $value) {
+
+
+    $existing_columns = array();
+$sql_show_columns = "SHOW COLUMNS FROM products";
+$result_columns = $con->query($sql_show_columns);
+if ($result_columns->num_rows > 0) {
+    while($row = $result_columns->fetch_assoc()) {
+        $existing_columns[] = $row['Field'];
+    }
+}
+
+
+    // echo 'column'. '-------'.$column.'<br>';
+    // echo 'value'. '-------'.$value.'<br>';
+    if (in_array($column, $existing_columns)) {
+        $sql_update = "UPDATE products SET $column = '$value'";
+        $con->query($sql_update);
+          }
+else {
+    $sql_add_column = "ALTER TABLE products ADD $column VARCHAR(255)";
+    $con->query($sql_add_column);
+        $sql_add_value = "UPDATE products SET $column = '$value'";
+        $con->query($sql_add_value);
+        } 
+   }
+
+   $con->close();
+unset($combine_description);
+unset($existing_columns);
+
+
+
+
+
+
+
+
+
+
+
+
 $flag++;
 $document->unloadDocument();
 echo "<hr>";
   } 
 }
-// format($product);
+
 
 
 
