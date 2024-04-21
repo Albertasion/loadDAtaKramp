@@ -1,8 +1,7 @@
 <?php
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
-ini_set('max_execution_time', 0);
-ini_set('default_charset', 'UTF-8');
+ini_set('max_execution_time', 0);   
 function format ($expre) {
     echo "<pre>";
     print_r($expre);
@@ -30,14 +29,14 @@ function mb_ucfirst($str, $encoding = 'UTF-8') {
 
 include_once('phpQuery.php');
 $product = [];
-$key = 0;
+$key = 1;
 
 $dir_files_pages = 'data\all_products_garden';
 $files_in_directory = scandir($dir_files_pages);
 
 $flag = 0;
 foreach ($files_in_directory as $key=>$files) {
-  // if ($flag>2000) break;
+  if ($flag>500) break;
  
   if ($files[0]!=='.' && $files[1]!=='.') {
   // $doc = file_get_contents($dir_files_pages.'/'.'page_10179.html');
@@ -366,17 +365,11 @@ format($combine_description);
 
 
 $con = connect_db();
-$sql = "INSERT INTO products (name, sku, brand, image, origsku, url)
-VALUES ('$full_name', '$sku', '$brand', '$images_str', '$originals_sku_arr_str', '$url')";
+$sql = "INSERT INTO products (id, name, sku, brand, image, origsku, url)
+VALUES ('$flag', '$full_name', '$sku', '$brand', '$images_str', '$originals_sku_arr_str', '$url')";
 $con->query($sql);  
 
-
-
-
-foreach($combine_description as $column => $value) {
-
-
-    $existing_columns = array();
+$existing_columns = array();
 $sql_show_columns = "SHOW COLUMNS FROM products";
 $result_columns = $con->query($sql_show_columns);
 if ($result_columns->num_rows > 0) {
@@ -385,24 +378,27 @@ if ($result_columns->num_rows > 0) {
     }
 }
 
+echo $flag.'<br>';
+foreach($combine_description as $column => $value) {
+    // if($column==='EAN') continue;
+    echo $column.'<br>';
 
-    // echo 'column'. '-------'.$column.'<br>';
-    // echo 'value'. '-------'.$value.'<br>';
-    if (in_array($column, $existing_columns)) {
-        $sql_update = "UPDATE products SET $column = '$value'";
-        $con->query($sql_update);
+    if (!in_array($column, $existing_columns)) 
+    {
+        $sql_add_column = "ALTER TABLE products ADD $column VARCHAR(255)";
+        $con->query($sql_add_column);        
+    $sql_add_value = "UPDATE products SET $column = '$value' WHERE id = '$flag'";
+    $con->query($sql_add_value);
           }
 else {
-    $sql_add_column = "ALTER TABLE products ADD $column VARCHAR(255)";
-    $con->query($sql_add_column);
-        $sql_add_value = "UPDATE products SET $column = '$value'";
-        $con->query($sql_add_value);
+    $sql_update = "UPDATE products SET $column = '$value' WHERE id = '$flag'";
+        $con->query($sql_update);
         } 
    }
 
-   $con->close();
-unset($combine_description);
+
 unset($existing_columns);
+// unset($combine_description);
 
 
 
@@ -411,10 +407,7 @@ unset($existing_columns);
 
 
 
-
-
-
-
+$key++;
 $flag++;
 $document->unloadDocument();
 echo "<hr>";
