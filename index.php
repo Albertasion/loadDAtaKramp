@@ -358,7 +358,7 @@ else {
 
 
 $combine_description = array_combine($description_row, $description_row_value);
-format($combine_description);
+// format($combine_description);
 
 
 
@@ -377,28 +377,30 @@ if ($result_columns->num_rows > 0) {
         $existing_columns[] = $row['Field'];
     }
 }
+format($existing_columns);
+
 
 echo $flag.'<br>';
 foreach($combine_description as $column => $value) {
-    // if($column==='EAN') continue;
+    if($column =='EAN') continue;
     echo $column.'<br>';
 
     if (!in_array($column, $existing_columns)) 
     {
-        $sql_add_column = "ALTER TABLE products ADD $column VARCHAR(255)";
+        $sql_add_column = "ALTER TABLE products ADD `$column` VARCHAR(255)";
         $con->query($sql_add_column);        
-    $sql_add_value = "UPDATE products SET $column = '$value' WHERE id = '$flag'";
+    $sql_add_value = "UPDATE products SET `$column` = '$value' WHERE id = $flag";
     $con->query($sql_add_value);
           }
 else {
-    $sql_update = "UPDATE products SET $column = '$value' WHERE id = '$flag'";
+    $sql_update = "UPDATE products SET `$column` = '$value' WHERE id = $flag";
         $con->query($sql_update);
         } 
    }
 
 
 unset($existing_columns);
-// unset($combine_description);
+unset($combine_description);
 
 
 
