@@ -28,15 +28,14 @@ function mb_ucfirst($str, $encoding = 'UTF-8') {
 
 
 include_once('phpQuery.php');
-$product = [];
-$key = 1;
+// $key = 1;
 
 $dir_files_pages = 'data\all_products_garden';
 $files_in_directory = scandir($dir_files_pages);
 
-$flag = 0;
+$flag = 1;
 foreach ($files_in_directory as $key=>$files) {
-  if ($flag>500) break;
+  // if ($flag>500) break;
  
   if ($files[0]!=='.' && $files[1]!=='.') {
   // $doc = file_get_contents($dir_files_pages.'/'.'page_10179.html');
@@ -46,16 +45,89 @@ $doc = file_get_contents($dir_files_pages.'/'.$files);
 $document = phpQuery::newDocument($doc);
 
 
+// //хлыбны крошки
+$bread_arr = [];
+$bread_path = $document->find('.kh-pt53y');
+foreach($bread_path as $key=>$value){
+  $pq = pq($value)->text();
+  $bread_arr[] = $pq;
+}
+//включение и выключение категории////////
+if (!in_array('Деталі для мотоблоків і газонокосарок', $bread_arr))
+{
+ continue;
+} 
+//тип. береться з крошок 
+$type_product = array_pop($bread_arr);
+$type_product = str_replace(' - огляд - Оригінальне обладнання', '', $type_product);
+$type_product = str_replace('Handles - overview - OE', 'Ручки', $type_product);
+$type_product = str_replace('Push lever supports - overview - OE', 'Опори натискного важеля', $type_product);
+$type_product= str_replace('- огляд - Оригінальні', '', $type_product);
+$type_product= str_replace(', оригінальне обладнання', '', $type_product);
+$type_product= str_replace('- огляд - OE', '', $type_product);
+
+echo $type_product.'<br>';
+   
+$bread_string = implode('>', $bread_arr); 
+
+echo $bread_string.'<br>';
+
+
+
+
+
+//картинки
+$images_block = $document->find('.kh-1vrm80b img');
+$images_arr = [];
+foreach($images_block as $key=>$value){
+  $pq = pq($value);
+  $img = $pq->attr('src');
+  $img = str_replace('?profile=thumb', '', $img);
+  $images_arr[] = $img;
+}
+//проускаем с пустыми картинками
+// if(in_array('assproductimage-', $images_arr)) continue;
+foreach ($images_arr as $image) {
+  if (strpos($image, 'assproductimage-') == true) {
+      continue 2;
+  }
+}
+
+///соединяем картинки с ;
+$images_str = implode(';', $images_arr);
+echo $images_str.'<br>';
+
+
+
+
+
 // полный h1 c названием и артикулом
 $h1 = $document->find('h1');
-
-//назва без артикулу
+if (!$h1) continue;
+// назва без артикулу///////
 $product_name = pq('$h1 span:eq(1)')->text();
 $product[$key]['product_name']= $product_name;
 /////////////////////////////////////////////
 
 
-//перекладач
+///////ціна///////////////////
+$product_price = $document->find('.kh-1l0rdl4');
+$product_price = $product_price->find('h2.kh-qu4qcy')->eq(0)->text();
+$product_price = str_replace('грн', '', $product_price);
+$product_price = preg_replace('/\p{Z}+/u', '', $product_price);
+$product_price = (int)$product_price;
+if($product_price===0) continue;
+echo $product_price.'<br>';
+$product_price = $product_price;
+$percentage = '0.4';
+$price_shop = bcadd($product_price, bcmul($product_price, $percentage));
+echo $price_shop.'<br>';
+
+
+
+
+
+
 $product_name = str_ireplace('ZUGFEDER', 'пружина', $product_name);
 $product_name = str_ireplace('EXTENSION SPRING Reel', 'пружина', $product_name);
 $product_name = str_ireplace('Recoil Starter', 'стартер', $product_name);
@@ -178,15 +250,32 @@ $product_name = str_ireplace('Tension', "напруга", $product_name);
 $product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
 $product_name = str_ireplace('Левая', "ліва", $product_name);
 $product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
-$product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
-$product_name = str_ireplace('Self locking', "з автоматичним блокуванням", $product_name);
+$product_name = str_ireplace('TORXSCHRAUBE', "гвинт Torx", $product_name);
+$product_name = str_ireplace('FLÜGELMUTTER', "барашкова гайка", $product_name);
+$product_name = str_ireplace('MUTTER', "гайка", $product_name);
+$product_name = str_ireplace('Gasket', "прокладка", $product_name);
+$product_name = str_ireplace('CLAMP PIN', "штифт зажиму", $product_name);
+$product_name = str_ireplace('SELF-TAPPING', "саморіз", $product_name);
 
-
-
-
-
-
-
+$product_name = str_ireplace('Stop', "стоп", $product_name);
+$product_name = str_ireplace('HEX-HEAD', "шестигранна головка", $product_name);
+$product_name = str_ireplace('MÄHDECK', "різальна дека", $product_name);
+$product_name = str_ireplace('Mowing deck', "косильна дека", $product_name);
+$product_name = str_ireplace('Housing', "корпус", $product_name);
+$product_name = str_ireplace('с цилиндрической', "з циліндричною", $product_name);
+$product_name = str_ireplace('Пруж. приж.', "пружина прижимна", $product_name);
+$product_name = str_ireplace('Quick fastener', "швидка застібка", $product_name);
+$product_name = str_ireplace('FLYWHEEL', "маховик", $product_name);
+$product_name = str_ireplace('Sticker', "наліпка", $product_name);
+$product_name = str_ireplace('Наклейка', "наліпка", $product_name);
+$product_name = str_ireplace('Стоп. кольцо', "стопорне кільце", $product_name);
+$product_name = str_ireplace('plain', "пряма", $product_name);
+$product_name = str_ireplace('SCHRAUBE', "гвинт", $product_name);
+$product_name = str_ireplace('Стопорная', "стопорна", $product_name);
+$product_name = str_ireplace('Locking', "блокування", $product_name);
+$product_name = str_ireplace('Pin', "штифт", $product_name);
+$product_name = str_ireplace('Flange', "фланець", $product_name);
+$product_name = str_ireplace('SCHR', "гвинт", $product_name);
 
 
 
@@ -194,10 +283,11 @@ $product_name = str_ireplace('Self locking', "з автоматичним бло
 
 // внутрішній артикул
 $sku = pq('$h1 span:eq(0)')->text();
-$product[$key]['sku']= $sku;
-////////////////////////////////////////////////////// внутрішній артикул
+$sku_inner = $sku.'STRUMENT';
+echo $sku_inner.'<br>';
+// ////////////////////////////////////////////////////// внутрішній артикул
 
-// бренд
+// // бренд
 $brand_block = $document->find('a.kh-1aous46');
 $brand_block =pq($brand_block);
 if ($brand_block->count()>0) {
@@ -207,6 +297,7 @@ $product[$key]['brand']= $brand;
 else {
   $product[$key]['brand']= "ПУСТО";
 }
+echo $brand.'<br>';
 ///////////////////////бренд
 // проверка на Не вдалося знайти сторінку
 
@@ -215,7 +306,7 @@ else {
 
 //повна назва товару типу 'Диск троса Honda 28415ZG9802
 //проверка есть ли в имени бренд
-$have_name_brand;
+
 if (stripos($product_name, $brand) !== false) {
 $full_name = $product_name . ' '. $sku;
 $full_name = ucfirst($full_name);
@@ -225,76 +316,24 @@ else {
   $full_name = $product_name . ' '. $brand . ' '. $sku;
   $full_name =  mb_ucfirst($full_name);
 }
+echo '<b>'.$full_name.'</b><br>';
 
 
-
-// посилання на сторінку
+// // посилання на сторінку
 $url = $document->find('link[rel="canonical"]');
 $url = pq($url);
 $url = $url->attr('href');
-$product[$key]['url'] = $url;
-// echo $url.'<br>';
+echo $url.'<br>';
 ///////////////////////////////////////////////посилання на сторінку
 
 
 
 
-//хлыбны крошки
-$bread_arr = [];
-$bread_path = $document->find('.kh-pt53y');
-foreach($bread_path as $key=>$value){
-  $pq = pq($value)->text();
-  $bread_arr[] = $pq;
-}
-
-if (!in_array('Деталі для мотоблоків і газонокосарок', $bread_arr)) continue;
-//тип. береться з крошок 
-$type_product = array_pop($bread_arr);
-$type_product = str_replace(' - огляд - Оригінальне обладнання', '', $type_product);
-$type_product = str_replace('Handles - overview - OE', 'Ручки', $type_product);
-$type_product = str_replace('Push lever supports - overview - OE', 'Опори натискного важеля', $type_product);
-$type_product= str_replace('- огляд - Оригінальні', '', $type_product);
-$type_product= str_replace(', оригінальне обладнання', '', $type_product);
-   
-echo $type_product.'<br>';
-
-//
-echo '<b>'.$full_name.'</b><br>';
-
-
-$bread_string = implode('>', $bread_arr); 
-
-echo $bread_string.'<br>';
 
 
 
 
-
-
-$images_block_simple = $document->find('img');
-
-//картинки
-
-$images_block = $document->find('.kh-1vrm80b img');
-$images_arr = [];
-foreach($images_block as $key=>$value){
-  $pq = pq($value);
-  $img = $pq->attr('src');
-  $img = str_replace('?profile=thumb', '', $img);
-  $images_arr[] = $img;
-}
-
-
-//пустышки картинки logo-,  assproductimage-
-
-
-
-$images_str = implode(';', $images_arr);
-$product[$key]['images'] = $images_arr;
-
-
-
-// оригінальний артикул
+// // оригінальний артикул
 $original_sku = $document->find('#taOriginalNumber_');
 $original_sku = $original_sku->find('.kh-pkx4zo');
 $original_sku = pq($original_sku);
@@ -310,42 +349,63 @@ else {
   $product[$key]['originals_sku_arr'] =  'Оригинала нима';
 }
 
+
+
+///////////////////описание//////
 $description_row = [];
 $description_row_value = [];
-//опис 
+// //опис 
 $descrition= $document->find('.kh-1xzm1su');
 
-
 $row_name = $descrition->find('tr');
-//название значения
+// //название значения
 foreach ($row_name as $key1=>$value) {
   $th = pq($value)->find('th')->text();
-  $tr = pq($value)->find('td')->text();
-  $tr = str_replace('mm', 'мм', $tr);
-  $tr = str_replace('Inch', 'дюйм', $tr);
-  $tr = str_replace('cm', 'см', $tr);
- $tr = str_replace('pcs', 'шт', $tr);
-  $tr = str_replace(' m', ' м', $tr);
-  $tr = str_replace('Rubber', 'Гумовий', $tr);
-  $tr = str_replace('Twisted', 'Кручений', $tr);
-  $tr = str_replace('Round', 'Круглий', $tr);
-  $tr = str_replace('Metric', 'Метрична', $tr);
-  $tr = str_replace('Reel', 'Катушка', $tr);
-   $tr = str_replace('Square', 'Квадрат', $tr);
-$tr = str_replace(' V', ' В', $tr);
-$tr = str_replace('Toothed', 'Зубчастий', $tr);
-$tr = str_replace('Chloroprene rubber', 'Хлоропреновий каучук', $tr);
-$tr = str_replace('r/min', 'об/хв', $tr);
-$tr = str_replace('Tube', 'Тюбик', $tr);
-$tr = str_replace('Yellow', 'Жовтий', $tr);
-$tr = str_replace('Seat repairing', 'Ремонт сидінь', $tr);
+  //назва колонка перекалд
+  $th = str_replace('Technical item description', 'Технічний опис', $th);
+
+//назва колонка значение
+$tr = pq($value)->find('td')->text();
+$tr = str_ireplace('mm', 'мм', $tr);
+$tr = str_ireplace('Inch', 'дюйм', $tr);
+$tr = str_ireplace('cm', 'см', $tr);
+$tr = str_ireplace('pcs', 'шт', $tr);
+$tr = str_ireplace(' m', ' м', $tr);
+$tr = str_ireplace('Rubber', 'гумовий', $tr);
+$tr = str_ireplace('Twisted', 'кручений', $tr);
+$tr = str_ireplace('Round', 'круглий', $tr);
+$tr = str_ireplace('Metric', 'метрична', $tr);
+$tr = str_ireplace('Reel', 'катушка', $tr);
+$tr = str_ireplace('Square', 'квадрат', $tr);
+$tr = str_ireplace(' V', ' в', $tr);
+$tr = str_ireplace('Toothed', 'зубчастий', $tr);
+$tr = str_ireplace('Chloroprene rubber', 'хлоропреновий каучук', $tr);
+$tr = str_ireplace('r/min', 'об/хв', $tr);
+$tr = str_ireplace('Tube', 'тюбик', $tr);
+$tr = str_ireplace('Yellow', 'жовтий', $tr);
+$tr = str_ireplace('Seat repairing', 'ремонт сидінь', $tr);
+$tr = str_ireplace('<span>', '', $tr);
+$tr = str_ireplace('</span>', '', $tr);
+$tr = str_ireplace('<!-- -->', '', $tr);
+$tr = str_ireplace('SPRING - EXTENSION', 'пружина', $tr);
+$tr = str_ireplace('SPRING-EXTENSION', 'пружина', $tr);
+$tr = str_ireplace('Wing', 'крило', $tr);
+$tr = str_ireplace('SPRING', 'пружина', $tr);
 
 
- 
+
+
   $li = pq($value)->find('.kh-16zd49f')->html();
 if($li) {
   $li = str_replace('</span><span>', ' | ', $li);
 $li = str_replace('mm', 'мм', $li);
+$li = str_replace('<span>', '', $li);
+$li = str_replace('</span>', '', $li);
+$li = str_replace('<!-- -->', '', $li);
+
+
+
+
 
   $description_row_value[$key1] = $li;
 }
@@ -358,15 +418,24 @@ else {
 
 
 $combine_description = array_combine($description_row, $description_row_value);
-// format($combine_description);
+$output_table = '<table class="description_str"><tr class="tr_str"><th>Тип</th><td>'.$type_product.'</td></tr><tr class="tr_str"><th>Виробник</th><td>'.$brand.'</td></tr>';
 
+foreach($combine_description as $key => $value) {
+ 
+  $output_table.='<tr class="tr_str"><th>'.$key.'</th><td>'.$value.'</td></tr>';
+}
+$output_table.= '</table>';
+
+
+echo $output_table.'<br>';
 
 
 
 
 $con = connect_db();
-$sql = "INSERT INTO products (id, name, sku, brand, image, origsku, url)
-VALUES ('$flag', '$full_name', '$sku', '$brand', '$images_str', '$originals_sku_arr_str', '$url')";
+$sql = "INSERT INTO products (`id`, `Артикул`, `Название`, `Название[UA]`, `Цена`, `Наличие`, `Поставщик`, `Категория`, `Доп. категория`, `Описание`, `Описание[UA]`, `Картинка`, `Виробник`, `Тип`)
+VALUES ('$flag','$sku_inner', '$full_name', '$full_name', '$price_shop', '1', 'Kramp', '$bread_string', '', '$output_table', '$output_table', '$images_str', '$brand', '$type_product')";
+
 $con->query($sql);  
 
 $existing_columns = array();
@@ -377,7 +446,6 @@ if ($result_columns->num_rows > 0) {
         $existing_columns[] = $row['Field'];
     }
 }
-format($existing_columns);
 
 
 echo $flag.'<br>';
@@ -401,18 +469,19 @@ else {
 
 unset($existing_columns);
 unset($combine_description);
+unset($price_array);
+unset($bread_arr);
 
 
 
 
 
 
-
-
-$key++;
+// $key++;
 $flag++;
 $document->unloadDocument();
 echo "<hr>";
+
   } 
 }
 
